@@ -3,10 +3,8 @@ package main
 import (
 	"encoding/json"
 	"errors"
-	"flag"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"strconv"
 	"strings"
@@ -21,7 +19,8 @@ var Currencies = []string{
 	"JPY", "KRW", "MXN", "MYR", "NOK", "NZD", "PHP", "PKR",
 	"PLN", "RUB", "SEK", "SGD", "THB", "TRY", "TWD", "ZAR",
 }
-var apiUrl = "https://api.coinmarketcap.com/v1/ticker/"
+
+const apiUrl string = "https://api.coinmarketcap.com/v1/ticker/"
 
 type coinData struct {
 	Symbol     string `json:"symbol"`
@@ -37,7 +36,7 @@ type allCoinData struct {
 }
 
 type Options struct {
-	Limit uint
+	Limit    uint
 	Currency string
 }
 
@@ -73,7 +72,6 @@ func getValue(i interface{}) string {
 // fetchPrices obtains the price data using the CoinMarketCap API.
 func fetchPrices(o Options) ([]byte, error) {
 	url := fmt.Sprintf("%s?limit=%v&convert=%s", apiUrl, o.Limit, o.Currency)
-	fmt.Println(url)
 	res, err := http.Get(url)
 	if err != nil {
 		return nil, fmt.Errorf("Error fetching data from %v: %v", apiUrl, err)
@@ -87,10 +85,17 @@ func fetchPrices(o Options) ([]byte, error) {
 }
 
 func printData(d allCoinData) {
+	headers := []string{
+		bold("  Coin"),
+		bold(fmt.Sprintf("   Price (%s)", strings.ToUpper(d.Currency))),
+		bold(" Change (1H)"),
+		bold("Change (24H)"),
+		bold(fmt.Sprintf("Market Cap (%s)", strings.ToUpper(d.Currency))),
+	}
 	fmt.Printf("\033[H\033[2J")
 	fmt.Printf("Price data as on %v\n", time.Now().Format("2006/01/02 03:04 PM"))
 	fmt.Println(strings.Repeat("-", 76))
-	fmt.Printf("|   Coin |    Price (%[1]s) |  Change (1H) | Change (24H) | Market Cap (%[1]s) |\n", strings.ToUpper(d.Currency))
+	fmt.Printf("| %s |\n", strings.Join(headers, " | "))
 	fmt.Println(strings.Repeat("-", 76))
 	for _, coin := range d.coin {
 		records := []string{
@@ -133,6 +138,10 @@ func colorize(s string) string {
 		color = "1;31m"
 	}
 	return fmt.Sprintf("\033[%s%12s\033[0m", color, s)
+}
+
+func bold(s string) string {
+	return fmt.Sprintf("\033[1m%s\033[0m", s)
 }
 
 // human returns a string form of the given number in base 10 with commas
