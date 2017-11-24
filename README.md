@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/0xmohit/CoinPrices.svg?branch=master)](https://travis-ci.org/0xmohit/CoinPrices)
+
 ## CoinPrices
 
 Get cryptocurrency prices on terminal.
