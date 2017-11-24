@@ -1,0 +1,7 @@
+go:
+- 1.9.x
+- release
+- tip
+
+script:
+- go get -x -v github.com/0xmohit/CoinPrices
