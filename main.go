@@ -8,8 +8,8 @@
 // By default, the prices are displayed in USD and the number of
 // cryptocurrencies is limited to 10.
 //
-// Valid currencies are: USD, AUD, BRL, CAD, CHF, CLP, CNY, CZK, DKK, EUR,
-// GBP, HKD, HUF, IDR, ILS, INR, JPY, KRW, MXN, MYR, NOK, NZD, PHP, PKR,
+// Valid currencies are: USD, AUD, BRL, BGN, CAD, CHF, CLP, CNY, CZK, DKK,
+// EUR, GBP, HKD, HUF, IDR, ILS, INR, JPY, KRW, MXN, MYR, NOK, NZD, PHP, PKR,
 // PLN, RUB, SEK, SGD, THB, TRY, TWD, ZAR.
 //
 // The data is obtained from [CoinMarketCap
