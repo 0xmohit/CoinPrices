@@ -5,3 +5,5 @@ go:
 
 script:
 - go get -x -v github.com/0xmohit/CoinPrices
+
+# Added comment - 
